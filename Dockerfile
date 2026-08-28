@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jdk-jammy AS build
 COPY . .
-# Compila o Main e todos os arquivos dentro da subpasta conta
-RUN javac src/Main.java src/conta/*.java -d out
+# Compila procurando todos os arquivos Java dentro da pasta src de forma segura
+RUN javac $(find src -name "*.java") -d out
 
 FROM eclipse-temurin:17-jre-jammy
 COPY --from=build /out /app/out
